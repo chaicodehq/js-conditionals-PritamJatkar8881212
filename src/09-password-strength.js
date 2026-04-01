@@ -25,6 +25,32 @@
  * @param {string} password - The password to evaluate
  * @returns {string} "weak", "medium", "strong", or "very strong"
  */
+
+const regex = {
+  strLength: /^.{8,}$/,
+  lowercase: /[a-z]/,
+  uppercase: /[A-Z]/,
+  digit: /\d/,
+  specialChar: /[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/
+}
+
+function strengthCheck(strength) {
+  if(strength <= 1) return "weak";
+  if(strength <= 3) return "medium" 
+  if(strength == 4) return "strong"
+  if(strength == 5) return "very strong"
+}
+
 export function checkPasswordStrength(password) {
   // Your code here
+
+  if(password === "" || typeof password !== "string") return "weak"; 
+
+  let strength = 0;
+
+  for(let [_, pattern] of Object.entries(regex)){
+    strength += Number(pattern.test(password));
+  }
+
+  return strengthCheck(strength);
 }

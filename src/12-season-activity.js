@@ -30,6 +30,46 @@
  * @param {number} temperature - Current temperature in Celsius
  * @returns {{ season: string, activity: string } | null}
  */
+
+function calculateSeason(month){
+
+  const value = month % 12;
+
+  if(value <= 2) return "Winter";
+  if(value <= 5) return "Spring";
+  if(value <= 8) return "Summer";
+  if(value <= 11) return "Autumn"; 
+}
+
+function calculateActivity(season, temp) {
+
+  if (season === "Winter") {
+    return temp < 0 ? "skiing" : "ice skating";
+  }
+
+  if (season === "Spring") {
+    return temp > 20 ? "hiking" : "museum visit";
+  }
+
+  if (season === "Summer") {
+    return temp > 35 ? "swimming" : "cycling";
+  }
+
+  if (season === "Autumn") {
+    return temp > 15 ? "nature walk" : "reading at a cafe";
+  }
+
+  return null; 
+}
+
 export function getSeasonActivity(month, temperature) {
-  // Your code here
+  if(month < 1 || month > 12 || !Number.isInteger(month)) return null;
+
+  const _season = calculateSeason(month);
+  const _activity = calculateActivity(_season, temperature);
+
+  return {
+    season: _season,
+    activity: _activity
+  }
 }
